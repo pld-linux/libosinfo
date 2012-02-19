@@ -2,18 +2,20 @@
 # Conditional build:
 %bcond_without	apidocs		# do not build and package API docs
 %bcond_without	static_libs	# don't build static libraries
+%bcond_without	vala		# Vala binding
 #
 Summary:	A library for managing OS information for virtualization
+Summary(pl.UTF-8):	Biblioteka do zarządzania informacjami dotyczącymi OS na potrzeby wirtualizacji
 Name:		libosinfo
-Version:	0.0.5
+Version:	0.1.0
 Release:	1
 License:	LGPL v2+
 Group:		Libraries
 Source0:	https://fedorahosted.org/releases/l/i/libosinfo/%{name}-%{version}.tar.gz
-# Source0-md5:	7e4c49809e81a66e5c7319cd2e26ceda
+# Source0-md5:	03e9558053bb3463fe09d3cae904b752
 URL:		https://fedorahosted.org/libosinfo/
 BuildRequires:	autoconf >= 2.61
-BuildRequires:	automake >= 1.11.1
+BuildRequires:	automake >= 1:1.11.1
 BuildRequires:	glib2-devel
 BuildRequires:	gnome-common
 BuildRequires:	gobject-introspection-devel >= 0.10.0
@@ -21,13 +23,18 @@ BuildRequires:	gtk-doc >= 1.10
 BuildRequires:	libtool
 BuildRequires:	libxml2-devel >= 1:2.6.0
 BuildRequires:	pkgconfig
-BuildRequires:	vala
+%{?with_vala:BuildRequires:	vala}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
 libosinfo is a library that allows virtualization provisioning tools
 to determine the optimal device settings for a hypervisor/operating
 system combination.
+
+%description -l pl.UTF-8
+libosinfo to biblioteka umożliwiająca narzędziom wirtualizacyjnym
+określenie optymalnych ustawień dla danej kombinacji hipernadzorcy
+i systemu operacyjnego.
 
 %package devel
 Summary:	Header files for libosinfo library
@@ -91,6 +98,7 @@ API libosinfo dla języka Vala.
 	--with-html-dir=%{_gtkdocdir} \
 	--disable-silent-rules \
 	%{!?with_static_libs:--disable-static} \
+	%{!?with_vala:--disable-vala} \
 	--enable-udev
 %{__make}
 
@@ -110,7 +118,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc AUTHORS NEWS README
+%doc AUTHORS ChangeLog NEWS README
 %attr(755,root,root) %{_bindir}/osinfo-detect
 %attr(755,root,root) %{_bindir}/osinfo-pciids-convert
 %attr(755,root,root) %{_bindir}/osinfo-usbids-convert
@@ -139,6 +147,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_gtkdocdir}/Libosinfo
 %endif
 
+%if %{with vala}
 %files -n vala-libosinfo
 %defattr(644,root,root,755)
 %{_datadir}/vala/vapi/libosinfo-1.0.vapi
+%endif
