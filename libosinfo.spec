@@ -7,12 +7,12 @@
 Summary:	A library for managing OS information for virtualization
 Summary(pl.UTF-8):	Biblioteka do zarządzania informacjami dotyczącymi OS na potrzeby wirtualizacji
 Name:		libosinfo
-Version:	0.1.2
+Version:	0.2.0
 Release:	1
 License:	LGPL v2+
 Group:		Libraries
 Source0:	https://fedorahosted.org/releases/l/i/libosinfo/%{name}-%{version}.tar.gz
-# Source0-md5:	f4bd25987a1576e7408d3635da6fb342
+# Source0-md5:	460d8e2b4b22ef15ae986ae3f2428505
 URL:		https://fedorahosted.org/libosinfo/
 BuildRequires:	autoconf >= 2.61
 BuildRequires:	automake >= 1:1.11.1
@@ -23,6 +23,7 @@ BuildRequires:	gtk-doc >= 1.10
 BuildRequires:	libsoup-gnome-devel >= 2.4
 BuildRequires:	libtool
 BuildRequires:	libxml2-devel >= 1:2.6.0
+BuildRequires:	libxslt-devel >= 1.0.0
 BuildRequires:	pkgconfig
 %{?with_vala:BuildRequires:	vala}
 Requires:	libxml2 >= 1:2.6.0
@@ -126,6 +127,7 @@ rm -rf $RPM_BUILD_ROOT
 %doc AUTHORS ChangeLog NEWS README
 %attr(755,root,root) %{_bindir}/osinfo-db-validate
 %attr(755,root,root) %{_bindir}/osinfo-detect
+%attr(755,root,root) %{_bindir}/osinfo-install-script
 %attr(755,root,root) %{_bindir}/osinfo-query
 %attr(755,root,root) %{_libdir}/libosinfo-1.0.so.*.*.*
 %attr(755,root,root) %ghost %{_libdir}/libosinfo-1.0.so.0
@@ -134,6 +136,7 @@ rm -rf $RPM_BUILD_ROOT
 /lib/udev/rules.d/95-osinfo.rules
 %{_mandir}/man1/osinfo-db-validate.1*
 %{_mandir}/man1/osinfo-detect.1*
+%{_mandir}/man1/osinfo-install-script.1*
 %{_mandir}/man1/osinfo-query.1*
 
 %files devel
