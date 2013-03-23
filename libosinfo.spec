@@ -7,12 +7,13 @@
 Summary:	A library for managing OS information for virtualization
 Summary(pl.UTF-8):	Biblioteka do zarządzania informacjami dotyczącymi OS na potrzeby wirtualizacji
 Name:		libosinfo
-Version:	0.2.5
+Version:	0.2.6
 Release:	1
 License:	LGPL v2+
 Group:		Libraries
 Source0:	https://fedorahosted.org/releases/l/i/libosinfo/%{name}-%{version}.tar.gz
-# Source0-md5:	02b6b6270dd0ef500a5f1c8b89c04b38
+# Source0-md5:	2bcf0b244fc206a4003e2cea8c8568c6
+Patch0:		%{name}-destdir.patch
 URL:		https://fedorahosted.org/libosinfo/
 BuildRequires:	autoconf >= 2.61
 BuildRequires:	automake >= 1:1.11.1
@@ -28,6 +29,9 @@ BuildRequires:	libxml2-devel >= 1:2.6.0
 BuildRequires:	libxslt-devel >= 1.0.0
 BuildRequires:	pkgconfig
 %{?with_vala:BuildRequires:	vala}
+Requires:	/lib/hwdata/pci.ids
+Requires:	/lib/hwdata/usb.ids
+Requires:	hwdata >= 0.243-5
 Requires:	libxml2 >= 1:2.6.0
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -94,6 +98,7 @@ API libosinfo dla języka Vala.
 
 %prep
 %setup -q
+%patch0 -p1
 
 %build
 %{__libtoolize}
@@ -103,11 +108,13 @@ API libosinfo dla języka Vala.
 %{__automake}
 %configure \
 	%{__enable_disable apidocs gtk-doc} \
-	--with-html-dir=%{_gtkdocdir} \
 	--disable-silent-rules \
 	%{!?with_static_libs:--disable-static} \
+	--enable-udev \
 	%{!?with_vala:--disable-vala} \
-	--enable-udev
+	--with-html-dir=%{_gtkdocdir} \
+	--with-pci-ids-path=/lib/hwdata/pci.ids \
+	--with-usb-ids-path=/lib/hwdata/usb.ids
 %{__make}
 
 %install
