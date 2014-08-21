@@ -2,20 +2,24 @@
 # Conditional build:
 %bcond_without	apidocs		# do not build and package API docs
 %bcond_without	static_libs	# don't build static libraries
+%bcond_without	tests		# don't perform "make check"
 %bcond_without	vala		# Vala binding
 #
 Summary:	A library for managing OS information for virtualization
 Summary(pl.UTF-8):	Biblioteka do zarządzania informacjami dotyczącymi OS na potrzeby wirtualizacji
 Name:		libosinfo
-Version:	0.2.10
+Version:	0.2.11
 Release:	1
 License:	LGPL v2+
 Group:		Libraries
 Source0:	https://fedorahosted.org/releases/l/i/libosinfo/%{name}-%{version}.tar.gz
-# Source0-md5:	02708aec32212c8b153d11b23e35c4e0
+# Source0-md5:	acfcddc6a3f577524fd705947fb5abbc
 URL:		https://fedorahosted.org/libosinfo/
 BuildRequires:	autoconf >= 2.61
 BuildRequires:	automake >= 1:1.11.1
+%if %{with tests}
+BuildRequires:	check-devel
+%endif
 BuildRequires:	gettext-devel >= 0.17
 BuildRequires:	glib2-devel >= 2.0
 BuildRequires:	gnome-common
@@ -41,8 +45,8 @@ system combination.
 
 %description -l pl.UTF-8
 libosinfo to biblioteka umożliwiająca narzędziom wirtualizacyjnym
-określenie optymalnych ustawień dla danej kombinacji hipernadzorcy
-i systemu operacyjnego.
+określenie optymalnych ustawień dla danej kombinacji hipernadzorcy i
+systemu operacyjnego.
 
 %package devel
 Summary:	Header files for libosinfo library
@@ -108,12 +112,17 @@ API libosinfo dla języka Vala.
 	%{__enable_disable apidocs gtk-doc} \
 	--disable-silent-rules \
 	%{?with_static_libs:--enable-static} \
+	%{__enable_disable tests} \
 	--enable-udev \
 	%{!?with_vala:--disable-vala} \
 	--with-html-dir=%{_gtkdocdir} \
 	--with-pci-ids-path=/lib/hwdata/pci.ids \
 	--with-usb-ids-path=/lib/hwdata/usb.ids
 %{__make}
+
+%if %{with tests}
+%{__make} check
+%endif
 
 %install
 rm -rf $RPM_BUILD_ROOT
