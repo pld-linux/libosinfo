@@ -20,7 +20,7 @@ BuildRequires:	automake >= 1:1.11.1
 %if %{with tests}
 BuildRequires:	check-devel
 %endif
-BuildRequires:	gettext-devel >= 0.17
+BuildRequires:	gettext-tools >= 0.17
 BuildRequires:	glib2-devel >= 2.0
 BuildRequires:	gnome-common
 BuildRequires:	gobject-introspection-devel >= 0.10.0
