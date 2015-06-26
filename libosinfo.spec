@@ -8,12 +8,12 @@
 Summary:	A library for managing OS information for virtualization
 Summary(pl.UTF-8):	Biblioteka do zarządzania informacjami dotyczącymi OS na potrzeby wirtualizacji
 Name:		libosinfo
-Version:	0.2.11
-Release:	2
+Version:	0.2.12
+Release:	1
 License:	LGPL v2+
 Group:		Libraries
 Source0:	https://fedorahosted.org/releases/l/i/libosinfo/%{name}-%{version}.tar.gz
-# Source0-md5:	acfcddc6a3f577524fd705947fb5abbc
+# Source0-md5:	7a7eb71ea82baec76c841df3401a2b8a
 URL:		https://fedorahosted.org/libosinfo/
 BuildRequires:	autoconf >= 2.61
 BuildRequires:	automake >= 1:1.11.1
@@ -27,7 +27,7 @@ BuildRequires:	gobject-introspection-devel >= 0.10.0
 BuildRequires:	gtk-doc >= 1.10
 BuildRequires:	intltool >= 0.40.0
 BuildRequires:	libsoup-gnome-devel >= 2.4
-BuildRequires:	libtool
+BuildRequires:	libtool >= 2:2
 BuildRequires:	libxml2-devel >= 1:2.6.0
 BuildRequires:	libxslt-devel >= 1.0.0
 BuildRequires:	pkgconfig
