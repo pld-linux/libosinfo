@@ -8,12 +8,12 @@
 Summary:	A library for managing OS information for virtualization
 Summary(pl.UTF-8):	Biblioteka do zarządzania informacjami dotyczącymi OS na potrzeby wirtualizacji
 Name:		libosinfo
-Version:	0.2.12
+Version:	0.3.0
 Release:	1
 License:	LGPL v2+
 Group:		Libraries
 Source0:	https://fedorahosted.org/releases/l/i/libosinfo/%{name}-%{version}.tar.gz
-# Source0-md5:	7a7eb71ea82baec76c841df3401a2b8a
+# Source0-md5:	34dc0de14a0ebf08de4110a172e9d569
 URL:		https://fedorahosted.org/libosinfo/
 BuildRequires:	autoconf >= 2.61
 BuildRequires:	automake >= 1:1.11.1
@@ -26,7 +26,7 @@ BuildRequires:	gnome-common
 BuildRequires:	gobject-introspection-devel >= 0.10.0
 BuildRequires:	gtk-doc >= 1.10
 BuildRequires:	intltool >= 0.40.0
-BuildRequires:	libsoup-gnome-devel >= 2.4
+BuildRequires:	libsoup-devel >= 2.42
 BuildRequires:	libtool >= 2:2
 BuildRequires:	libxml2-devel >= 1:2.6.0
 BuildRequires:	libxslt-devel >= 1.0.0
@@ -35,6 +35,7 @@ BuildRequires:	pkgconfig
 Requires:	/lib/hwdata/pci.ids
 Requires:	/lib/hwdata/usb.ids
 Requires:	hwdata >= 0.243-5
+Requires:	libsoup >= 2.42
 Requires:	libxml2 >= 1:2.6.0
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -54,7 +55,7 @@ Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki libosinfo
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	glib2-devel >= 2.0
-Requires:	libsoup-gnome-devel >= 2.4
+Requires:	libsoup-devel >= 2.42
 Requires:	libxml2-devel >= 1:2.6.0
 
 %description devel
@@ -132,6 +133,11 @@ rm -rf $RPM_BUILD_ROOT
 
 %{__rm} $RPM_BUILD_ROOT%{_libdir}/*.la
 
+# not yet supported by glibc
+%{__rm} -r $RPM_BUILD_ROOT%{_localedir}/{bal,ilo,kw@kkcor,kw@uccor,tw,wba}
+# a copy of kw
+%{__rm} -r $RPM_BUILD_ROOT%{_localedir}/kw_GB
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -149,7 +155,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %ghost %{_libdir}/libosinfo-1.0.so.0
 %{_libdir}/girepository-1.0/Libosinfo-1.0.typelib
 %{_datadir}/libosinfo
-/lib/udev/rules.d/95-osinfo.rules
 %{_mandir}/man1/osinfo-db-validate.1*
 %{_mandir}/man1/osinfo-detect.1*
 %{_mandir}/man1/osinfo-install-script.1*
