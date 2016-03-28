@@ -4,12 +4,12 @@
 %bcond_without	static_libs	# don't build static libraries
 %bcond_without	tests		# don't perform "make check"
 %bcond_without	vala		# Vala binding
-#
+
 Summary:	A library for managing OS information for virtualization
 Summary(pl.UTF-8):	Biblioteka do zarządzania informacjami dotyczącymi OS na potrzeby wirtualizacji
 Name:		libosinfo
 Version:	0.3.0
-Release:	2
+Release:	3
 License:	LGPL v2+
 Group:		Libraries
 Source0:	https://fedorahosted.org/releases/l/i/libosinfo/%{name}-%{version}.tar.gz
@@ -93,6 +93,9 @@ Summary:	libosinfo API for Vala language
 Summary(pl.UTF-8):	API libosinfo dla języka Vala
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
+%if "%{_rpmversion}" >= "5"
+BuildArch:	noarch
+%endif
 
 %description -n vala-libosinfo
 libosinfo API for Vala language.
