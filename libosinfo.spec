@@ -39,7 +39,7 @@ Requires:	hwdata >= 0.243-5
 Requires:	libsoup >= 2.42
 Requires:	libxml2 >= 1:2.6.0
 Requires:	osinfo-db
-Requires:	osinfo-db-tools
+Suggests:	osinfo-db-tools
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
