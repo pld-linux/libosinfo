@@ -8,17 +8,18 @@
 Summary:	A library for managing OS information for virtualization
 Summary(pl.UTF-8):	Biblioteka do zarządzania informacjami dotyczącymi OS na potrzeby wirtualizacji
 Name:		libosinfo
-Version:	0.3.1
+Version:	1.0.0
 Release:	1
 License:	LGPL v2+
 Group:		Libraries
 Source0:	https://fedorahosted.org/releases/l/i/libosinfo/%{name}-%{version}.tar.gz
-# Source0-md5:	9cf3f41e1e57544b84822c491fd28273
+# Source0-md5:	22a09db53246e4a54be14d82a59b15db
 URL:		https://fedorahosted.org/libosinfo/
 BuildRequires:	autoconf >= 2.61
 BuildRequires:	automake >= 1:1.11.1
 %if %{with tests}
 BuildRequires:	check-devel
+BuildRequires:	osinfo-db
 %endif
 BuildRequires:	gettext-tools >= 0.17
 BuildRequires:	glib2-devel >= 1:2.36
@@ -37,6 +38,8 @@ Requires:	/lib/hwdata/usb.ids
 Requires:	hwdata >= 0.243-5
 Requires:	libsoup >= 2.42
 Requires:	libxml2 >= 1:2.6.0
+Requires:	osinfo-db
+Requires:	osinfo-db-tools
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -120,7 +123,6 @@ API libosinfo dla języka Vala.
 	--disable-silent-rules \
 	%{?with_static_libs:--enable-static} \
 	%{__enable_disable tests} \
-	--enable-udev \
 	%{!?with_vala:--disable-vala} \
 	--with-html-dir=%{_gtkdocdir} \
 	--with-pci-ids-path=/lib/hwdata/pci.ids \
@@ -155,15 +157,12 @@ rm -rf $RPM_BUILD_ROOT
 %files -f %{name}.lang
 %defattr(644,root,root,755)
 %doc AUTHORS ChangeLog NEWS README
-%attr(755,root,root) %{_bindir}/osinfo-db-validate
 %attr(755,root,root) %{_bindir}/osinfo-detect
 %attr(755,root,root) %{_bindir}/osinfo-install-script
 %attr(755,root,root) %{_bindir}/osinfo-query
 %attr(755,root,root) %{_libdir}/libosinfo-1.0.so.*.*.*
 %attr(755,root,root) %ghost %{_libdir}/libosinfo-1.0.so.0
 %{_libdir}/girepository-1.0/Libosinfo-1.0.typelib
-%{_datadir}/libosinfo
-%{_mandir}/man1/osinfo-db-validate.1*
 %{_mandir}/man1/osinfo-detect.1*
 %{_mandir}/man1/osinfo-install-script.1*
 %{_mandir}/man1/osinfo-query.1*
