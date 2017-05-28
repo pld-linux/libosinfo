@@ -12,9 +12,9 @@ Version:	1.0.0
 Release:	1
 License:	LGPL v2+
 Group:		Libraries
-Source0:	https://fedorahosted.org/releases/l/i/libosinfo/%{name}-%{version}.tar.gz
+Source0:	https://releases.pagure.org/libosinfo/%{name}-%{version}.tar.gz
 # Source0-md5:	22a09db53246e4a54be14d82a59b15db
-URL:		https://fedorahosted.org/libosinfo/
+URL:		https://libosinfo.org/
 BuildRequires:	autoconf >= 2.61
 BuildRequires:	automake >= 1:1.11.1
 %if %{with tests}
