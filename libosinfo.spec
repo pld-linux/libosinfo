@@ -8,26 +8,19 @@
 Summary:	A library for managing OS information for virtualization
 Summary(pl.UTF-8):	Biblioteka do zarządzania informacjami dotyczącymi OS na potrzeby wirtualizacji
 Name:		libosinfo
-Version:	1.0.0
+Version:	1.5.0
 Release:	1
 License:	LGPL v2+
 Group:		Libraries
 Source0:	https://releases.pagure.org/libosinfo/%{name}-%{version}.tar.gz
-# Source0-md5:	22a09db53246e4a54be14d82a59b15db
+# Source0-md5:	2930e9e9a2176983016f1b5eafccff43
 URL:		https://libosinfo.org/
 BuildRequires:	autoconf >= 2.61
 BuildRequires:	automake >= 1:1.11.1
-%if %{with tests}
-BuildRequires:	check-devel
-BuildRequires:	osinfo-db
-%endif
-BuildRequires:	gettext-tools >= 0.17
+BuildRequires:	gettext-tools >= 0.19.8
 BuildRequires:	glib2-devel >= 1:2.36
-BuildRequires:	gnome-common
 BuildRequires:	gobject-introspection-devel >= 0.10.0
 BuildRequires:	gtk-doc >= 1.10
-BuildRequires:	intltool >= 0.40.0
-BuildRequires:	libsoup-devel >= 2.42
 BuildRequires:	libtool >= 2:2
 BuildRequires:	libxml2-devel >= 1:2.6.0
 BuildRequires:	libxslt-devel >= 1.0.0
@@ -36,9 +29,8 @@ BuildRequires:	pkgconfig
 Requires:	/lib/hwdata/pci.ids
 Requires:	/lib/hwdata/usb.ids
 Requires:	hwdata >= 0.243-5
-Requires:	libsoup >= 2.42
 Requires:	libxml2 >= 1:2.6.0
-Requires:	osinfo-db
+Requires:	osinfo-db >= 20180612
 Suggests:	osinfo-db-tools
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -58,8 +50,6 @@ Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki libosinfo
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	glib2-devel >= 1:2.36
-Requires:	libsoup-devel >= 2.42
-Requires:	libxml2-devel >= 1:2.6.0
 
 %description devel
 Header files for libosinfo library.
