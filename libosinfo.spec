@@ -8,25 +8,26 @@
 Summary:	A library for managing OS information for virtualization
 Summary(pl.UTF-8):	Biblioteka do zarządzania informacjami dotyczącymi OS na potrzeby wirtualizacji
 Name:		libosinfo
-Version:	1.6.0
+Version:	1.7.1
 Release:	1
 License:	LGPL v2+
 Group:		Libraries
-Source0:	https://releases.pagure.org/libosinfo/%{name}-%{version}.tar.gz
-# Source0-md5:	f6d92dc26b1b641f59679e5eecb37887
+Source0:	https://releases.pagure.org/libosinfo/%{name}-%{version}.tar.xz
+# Source0-md5:	7a009fbd36ec9a708d368309d1d984e1
 URL:		https://libosinfo.org/
-BuildRequires:	autoconf >= 2.61
-BuildRequires:	automake >= 1:1.11.1
 BuildRequires:	gettext-tools >= 0.19.8
 BuildRequires:	glib2-devel >= 1:2.44
 BuildRequires:	gobject-introspection-devel >= 0.10.0
 BuildRequires:	gtk-doc >= 1.10
 BuildRequires:	libsoup-devel >= 2.4
-BuildRequires:	libtool >= 2:2
 BuildRequires:	libxml2-devel >= 1:2.6.0
 BuildRequires:	libxslt-devel >= 1.0.0
+BuildRequires:	meson >= 0.49.0
+BuildRequires:	ninja >= 1.5
 BuildRequires:	pkgconfig
+BuildRequires:	tar >= 1:1.22
 %{?with_vala:BuildRequires:	vala}
+BuildRequires:	xz
 Requires:	/lib/hwdata/pci.ids
 Requires:	/lib/hwdata/usb.ids
 Requires:	glib2 >= 1:2.44
@@ -76,7 +77,7 @@ Summary:	libosinfo API documentation
 Summary(pl.UTF-8):	Dokumentacja API biblioteki libosinfo
 Group:		Documentation
 Requires:	gtk-doc-common
-%if "%{_rpmversion}" >= "5"
+%if "%{_rpmversion}" >= "4.6"
 BuildArch:	noarch
 %endif
 
@@ -91,7 +92,7 @@ Summary:	libosinfo API for Vala language
 Summary(pl.UTF-8):	API libosinfo dla języka Vala
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
-%if "%{_rpmversion}" >= "5"
+%if "%{_rpmversion}" >= "4.6"
 BuildArch:	noarch
 %endif
 
@@ -105,33 +106,22 @@ API libosinfo dla języka Vala.
 %setup -q
 
 %build
-%{__libtoolize}
-%{__aclocal} -I m4
-%{__autoconf}
-%{__autoheader}
-%{__automake}
-%configure \
-	%{__enable_disable apidocs gtk-doc} \
-	--disable-silent-rules \
-	%{?with_static_libs:--enable-static} \
-	%{__enable_disable tests} \
-	%{!?with_vala:--disable-vala} \
-	--with-html-dir=%{_gtkdocdir} \
-	--with-pci-ids-path=/lib/hwdata/pci.ids \
-	--with-usb-ids-path=/lib/hwdata/usb.ids
-%{__make}
+%meson build \
+	%{!?with_apidocs:-Denable-gtk-doc=false} \
+	%{!?with_vala:-Denable-vala=false} \
+	-Dwith-pci-ids-path=/lib/hwdata/pci.ids \
+	-Dwith-usb-ids-path=/lib/hwdata/usb.ids
+
+%ninja_build -C build
 
 %if %{with tests}
-%{__make} check
+%ninja_test -C build
 %endif
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
-%{__make} install \
-	DESTDIR=$RPM_BUILD_ROOT
-
-%{__rm} $RPM_BUILD_ROOT%{_libdir}/*.la
+%ninja_install -C build
 
 # not yet supported by glibc
 %{__rm} -r $RPM_BUILD_ROOT%{_localedir}/{bal,ilo,kw@kkcor,kw@uccor,tw,wba}
@@ -148,7 +138,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -f %{name}.lang
 %defattr(644,root,root,755)
-%doc AUTHORS ChangeLog NEWS README
+%doc AUTHORS ChangeLog MAINTAINERS NEWS README
 %attr(755,root,root) %{_bindir}/osinfo-detect
 %attr(755,root,root) %{_bindir}/osinfo-install-script
 %attr(755,root,root) %{_bindir}/osinfo-query
@@ -181,5 +171,6 @@ rm -rf $RPM_BUILD_ROOT
 %if %{with vala}
 %files -n vala-libosinfo
 %defattr(644,root,root,755)
+%{_datadir}/vala/vapi/libosinfo-1.0.deps
 %{_datadir}/vala/vapi/libosinfo-1.0.vapi
 %endif
