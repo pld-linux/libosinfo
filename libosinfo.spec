@@ -8,23 +8,24 @@
 Summary:	A library for managing OS information for virtualization
 Summary(pl.UTF-8):	Biblioteka do zarządzania informacjami dotyczącymi OS na potrzeby wirtualizacji
 Name:		libosinfo
-Version:	1.7.1
+Version:	1.8.0
 Release:	1
 License:	LGPL v2+
 Group:		Libraries
 Source0:	https://releases.pagure.org/libosinfo/%{name}-%{version}.tar.xz
-# Source0-md5:	7a009fbd36ec9a708d368309d1d984e1
+# Source0-md5:	e64964aea86e40afae2ad9b5077c7378
 URL:		https://libosinfo.org/
 BuildRequires:	gettext-tools >= 0.19.8
 BuildRequires:	glib2-devel >= 1:2.44
 BuildRequires:	gobject-introspection-devel >= 0.10.0
-BuildRequires:	gtk-doc >= 1.10
+%{?with_apidocs:BuildRequires:	gtk-doc >= 1.10}
 BuildRequires:	libsoup-devel >= 2.4
 BuildRequires:	libxml2-devel >= 1:2.6.0
 BuildRequires:	libxslt-devel >= 1.0.0
 BuildRequires:	meson >= 0.49.0
 BuildRequires:	ninja >= 1.5
 BuildRequires:	pkgconfig
+BuildRequires:	rpmbuild(macros) >= 1.736
 BuildRequires:	tar >= 1:1.22
 %{?with_vala:BuildRequires:	vala}
 BuildRequires:	xz
@@ -123,10 +124,8 @@ rm -rf $RPM_BUILD_ROOT
 
 %ninja_install -C build
 
-# not yet supported by glibc
-%{__rm} -r $RPM_BUILD_ROOT%{_localedir}/{bal,ilo,kw@kkcor,kw@uccor,tw,wba}
-# a copy of kw
-%{__rm} -r $RPM_BUILD_ROOT%{_localedir}/kw_GB
+# unify
+%{__mv} $RPM_BUILD_ROOT%{_localedir}/{pt_PT,pt}
 
 %find_lang %{name}
 
