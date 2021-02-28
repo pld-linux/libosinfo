@@ -78,9 +78,7 @@ Summary:	libosinfo API documentation
 Summary(pl.UTF-8):	Dokumentacja API biblioteki libosinfo
 Group:		Documentation
 Requires:	gtk-doc-common
-%if "%{_rpmversion}" >= "4.6"
 BuildArch:	noarch
-%endif
 
 %description apidocs
 API documentation for libosinfo library.
@@ -93,9 +91,7 @@ Summary:	libosinfo API for Vala language
 Summary(pl.UTF-8):	API libosinfo dla języka Vala
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
-%if "%{_rpmversion}" >= "4.6"
 BuildArch:	noarch
-%endif
 
 %description -n vala-libosinfo
 libosinfo API for Vala language.
