@@ -8,18 +8,18 @@
 Summary:	A library for managing OS information for virtualization
 Summary(pl.UTF-8):	Biblioteka do zarządzania informacjami dotyczącymi OS na potrzeby wirtualizacji
 Name:		libosinfo
-Version:	1.8.0
+Version:	1.10.0
 Release:	1
 License:	LGPL v2+
 Group:		Libraries
 Source0:	https://releases.pagure.org/libosinfo/%{name}-%{version}.tar.xz
-# Source0-md5:	e64964aea86e40afae2ad9b5077c7378
+# Source0-md5:	9c2059648bf6f5610ba838a1fb1a84ad
 URL:		https://libosinfo.org/
 BuildRequires:	gettext-tools >= 0.19.8
 BuildRequires:	glib2-devel >= 1:2.44
 BuildRequires:	gobject-introspection-devel >= 0.10.0
 %{?with_apidocs:BuildRequires:	gtk-doc >= 1.10}
-BuildRequires:	libsoup-devel >= 2.4
+BuildRequires:	libsoup3-devel >= 3.0
 BuildRequires:	libxml2-devel >= 1:2.6.0
 BuildRequires:	libxslt-devel >= 1.0.0
 BuildRequires:	meson >= 0.49.0
@@ -35,7 +35,7 @@ Requires:	glib2 >= 1:2.44
 Requires:	hwdata >= 0.243-5
 Requires:	libxml2 >= 1:2.6.0
 Requires:	osinfo-db >= 20180612
-Suggests:	osinfo-db-tools
+Suggests:	osinfo-db-tools >= 1.10.0
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
