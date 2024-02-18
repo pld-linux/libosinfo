@@ -1,19 +1,19 @@
 #
 # Conditional build:
-%bcond_without	apidocs		# do not build and package API docs
-%bcond_without	static_libs	# don't build static libraries
-%bcond_without	tests		# don't perform "make check"
+%bcond_without	apidocs		# API documentation
+%bcond_without	static_libs	# static library
+%bcond_without	tests		# unit tests
 %bcond_without	vala		# Vala binding
 
 Summary:	A library for managing OS information for virtualization
 Summary(pl.UTF-8):	Biblioteka do zarządzania informacjami dotyczącymi OS na potrzeby wirtualizacji
 Name:		libosinfo
-Version:	1.10.0
+Version:	1.11.0
 Release:	1
 License:	LGPL v2+
 Group:		Libraries
 Source0:	https://releases.pagure.org/libosinfo/%{name}-%{version}.tar.xz
-# Source0-md5:	9c2059648bf6f5610ba838a1fb1a84ad
+# Source0-md5:	e7e586c0dd61aa73deff7fbe86473d64
 URL:		https://libosinfo.org/
 BuildRequires:	gettext-tools >= 0.19.8
 BuildRequires:	glib2-devel >= 1:2.44
