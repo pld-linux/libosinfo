@@ -8,12 +8,12 @@
 Summary:	A library for managing OS information for virtualization
 Summary(pl.UTF-8):	Biblioteka do zarządzania informacjami dotyczącymi OS na potrzeby wirtualizacji
 Name:		libosinfo
-Version:	1.11.0
+Version:	1.12.0
 Release:	1
 License:	LGPL v2+
 Group:		Libraries
 Source0:	https://releases.pagure.org/libosinfo/%{name}-%{version}.tar.xz
-# Source0-md5:	e7e586c0dd61aa73deff7fbe86473d64
+# Source0-md5:	b074a8ccac5c8aa2fa30489acaca7cc5
 URL:		https://libosinfo.org/
 BuildRequires:	gettext-tools >= 0.19.8
 BuildRequires:	glib2-devel >= 1:2.44
@@ -104,6 +104,7 @@ API libosinfo dla języka Vala.
 
 %build
 %meson build \
+	%{!?with_static_libs:--default-library=shared} \
 	%{!?with_apidocs:-Denable-gtk-doc=false} \
 	%{!?with_vala:-Denable-vala=false} \
 	-Dwith-pci-ids-path=/lib/hwdata/pci.ids \
@@ -122,6 +123,7 @@ rm -rf $RPM_BUILD_ROOT
 
 # unify
 %{__mv} $RPM_BUILD_ROOT%{_localedir}/{pt_PT,pt}
+%{__mv} $RPM_BUILD_ROOT%{_localedir}/{zh_Hans,zh_CN}
 
 %find_lang %{name}
 
