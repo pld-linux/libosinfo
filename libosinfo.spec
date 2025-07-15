@@ -103,14 +103,14 @@ API libosinfo dla języka Vala.
 %setup -q
 
 %build
-%meson build \
+%meson \
 	%{!?with_static_libs:--default-library=shared} \
 	%{!?with_apidocs:-Denable-gtk-doc=false} \
 	%{!?with_vala:-Denable-vala=false} \
 	-Dwith-pci-ids-path=/lib/hwdata/pci.ids \
 	-Dwith-usb-ids-path=/lib/hwdata/usb.ids
 
-%ninja_build -C build
+%meson_build
 
 %if %{with tests}
 %ninja_test -C build
@@ -119,7 +119,7 @@ API libosinfo dla języka Vala.
 %install
 rm -rf $RPM_BUILD_ROOT
 
-%ninja_install -C build
+%meson_install
 
 # unify
 %{__mv} $RPM_BUILD_ROOT%{_localedir}/{pt_PT,pt}
