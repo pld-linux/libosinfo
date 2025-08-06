@@ -26,6 +26,7 @@ BuildRequires:	libxslt-devel >= 1.0.0
 BuildRequires:	meson >= 0.49.0
 BuildRequires:	ninja >= 1.5
 BuildRequires:	pkgconfig
+BuildRequires:	rpm-build >= 4.6
 BuildRequires:	rpmbuild(macros) >= 2.042
 BuildRequires:	tar >= 1:1.22
 %{?with_vala:BuildRequires:	vala}
