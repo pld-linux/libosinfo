@@ -26,7 +26,7 @@ BuildRequires:	libxslt-devel >= 1.0.0
 BuildRequires:	meson >= 0.49.0
 BuildRequires:	ninja >= 1.5
 BuildRequires:	pkgconfig
-BuildRequires:	rpmbuild(macros) >= 1.736
+BuildRequires:	rpmbuild(macros) >= 2.042
 BuildRequires:	tar >= 1:1.22
 %{?with_vala:BuildRequires:	vala}
 BuildRequires:	xz
@@ -115,7 +115,7 @@ API libosinfo dla języka Vala.
 %meson_build
 
 %if %{with tests}
-%ninja_test -C build
+%meson_test
 %endif
 
 %install
