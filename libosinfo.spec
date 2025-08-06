@@ -14,6 +14,7 @@ License:	LGPL v2+
 Group:		Libraries
 Source0:	https://releases.pagure.org/libosinfo/%{name}-%{version}.tar.xz
 # Source0-md5:	b074a8ccac5c8aa2fa30489acaca7cc5
+Patch0:		libxml2.14.patch
 URL:		https://libosinfo.org/
 BuildRequires:	gettext-tools >= 0.19.8
 BuildRequires:	glib2-devel >= 1:2.44
@@ -101,6 +102,7 @@ API libosinfo dla języka Vala.
 
 %prep
 %setup -q
+%patch -P0 -p1
 
 %build
 %meson \
